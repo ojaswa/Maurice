@@ -21,5 +21,5 @@
 
 
 The code corrsponds to the following SIGGRAPH Asia publication and is allowed to be used for academic and research purpose (non-commercial):  
-*Sharma, Ojaswa, and Ranjith Tharayil. "Shape-aware MLS deformation for line handles." In SIGGRAPH Asia 2015 Technical Briefs, p. 20. ACM, 2015.*  
+*[Sharma, Ojaswa, and Ranjith Tharayil. "Shape-aware MLS deformation for line handles." In SIGGRAPH Asia 2015 Technical Briefs, p. 20. ACM, 2015](https://dl.acm.org/citation.cfm?id=2820908).*  
 Please cite the paper in case you choose to use this code.
