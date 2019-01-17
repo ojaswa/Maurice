@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/***************************************************************************
+**                                                                        **
+**  Maurice - a 2D deformable mapping/animation program                   **
+**  Copyright (C) 2014-2016 Graphics Research Group, IIIT Delhi           **
+**                                                                        **
+**  This program is free software: you can redistribute it and/or modify  **
+**  it under the terms of the GNU General Public License as published by  **
+**  the Free Software Foundation, either version 3 of the License, or     **
+**  (at your option) any later version.                                   **
+**                                                                        **
+**  This program is distributed in the hope that it will be useful,       **
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of        **
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         **
+**  GNU General Public License for more details.                          **
+**                                                                        **
+**  You should have received a copy of the GNU General Public License     **
+**  along with this program.  If not, see http://www.gnu.org/licenses/.   **
+**                                                                        **
+****************************************************************************
+**           Author: Ojaswa Sharma                                        **
+**           E-mail: ojaswa@iiitd.ac.in                                   **
+**           Date  : 20.09.2015                                           **
+****************************************************************************/
+-->
+<ui version="4.0">
+ <class>CageDialog</class>
+ <widget class="QDialog" name="CageDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>224</width>
+    <height>82</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Modify cage</string>
+  </property>
+  <property name="modal">
+   <bool>false</bool>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Shape dilation</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QSpinBox" name="spinBoxCageDilation">
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="value">
+      <number>2</number>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Simplification threshold</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QSpinBox" name="spinBoxCageThreshold">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="value">
+      <number>10</number>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

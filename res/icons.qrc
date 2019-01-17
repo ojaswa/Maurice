@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/Application">
+        <file>../icons/Open_image.png</file>
+        <file>../icons/Display_cage.png</file>
+        <file>../icons/Display_mesh.png</file>
+        <file>../icons/Line_handles.png</file>
+        <file>../icons/Polyline_handles.png</file>
+        <file>../icons/Euclidean.png</file>
+        <file>../icons/Snapshot.png</file>
+        <file>../icons/Reset.png</file>
+        <file>../icons/Delete_handles.png</file>
+        <file>../icons/Hide_handles.png</file>
+    </qresource>
+</RCC>

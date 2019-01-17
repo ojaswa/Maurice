@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../shaders/shapeTextured.fs</file>
+        <file>../shaders/shapeTextured.vs</file>
+        <file>../shaders/lineHandle.fs</file>
+        <file>../shaders/lineHandle.vs</file>
+    </qresource>
+</RCC>

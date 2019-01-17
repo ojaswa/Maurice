@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/***************************************************************************
+**                                                                        **
+**  Maurice - a 2D deformable mapping/animation program                   **
+**  Copyright (C) 2014-2016 Graphics Research Group, IIIT Delhi           **
+**                                                                        **
+**  This program is free software: you can redistribute it and/or modify  **
+**  it under the terms of the GNU General Public License as published by  **
+**  the Free Software Foundation, either version 3 of the License, or     **
+**  (at your option) any later version.                                   **
+**                                                                        **
+**  This program is distributed in the hope that it will be useful,       **
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of        **
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         **
+**  GNU General Public License for more details.                          **
+**                                                                        **
+**  You should have received a copy of the GNU General Public License     **
+**  along with this program.  If not, see http://www.gnu.org/licenses/.   **
+**                                                                        **
+****************************************************************************
+**           Author: Ojaswa Sharma                                        **
+**           E-mail: ojaswa@iiitd.ac.in                                   **
+**           Date  : 23.09.2015                                           **
+****************************************************************************/
+-->
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>605</width>
+    <height>576</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Shape-aware MLS deformation</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>:/blaze.png</normaloff>:/blaze.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="OpenGLWidget" name="openGLWidget" native="true"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>605</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="action_Open_Image"/>
+    <addaction name="actionSnapshot"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionDisplay_triangulation"/>
+    <addaction name="actionDisplay_cage"/>
+    <addaction name="actionModify_cage"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menuHandles">
+    <property name="title">
+     <string>Handles</string>
+    </property>
+    <addaction name="actionAdd_Line_handles"/>
+    <addaction name="actionAdd_Polyline_handle"/>
+    <addaction name="actionHide_handles"/>
+    <addaction name="separator"/>
+    <addaction name="actionDelete_all_handles"/>
+   </widget>
+   <widget class="QMenu" name="menuDeformation">
+    <property name="title">
+     <string>Deformation</string>
+    </property>
+    <addaction name="actionUse_Euclidean_distance"/>
+    <addaction name="actionReset_deformation"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menuView"/>
+   <addaction name="menuHandles"/>
+   <addaction name="menuDeformation"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>16</width>
+     <height>16</height>
+    </size>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_Open_Image"/>
+   <addaction name="actionSnapshot"/>
+   <addaction name="separator"/>
+   <addaction name="actionDisplay_triangulation"/>
+   <addaction name="actionDisplay_cage"/>
+   <addaction name="separator"/>
+   <addaction name="actionAdd_Line_handles"/>
+   <addaction name="actionAdd_Polyline_handle"/>
+   <addaction name="actionHide_handles"/>
+   <addaction name="actionDelete_all_handles"/>
+   <addaction name="separator"/>
+   <addaction name="actionUse_Euclidean_distance"/>
+   <addaction name="actionReset_deformation"/>
+   <addaction name="separator"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="action_Open_Image">
+   <property name="icon">
+    <iconset resource="../../res/icons.qrc">
+     <normaloff>:/Application/icons/Open_image.png</normaloff>:/Application/icons/Open_image.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Open Image</string>
+   </property>
+   <property name="toolTip">
+    <string>Open image</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionDisplay_triangulation">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../res/icons.qrc">
+     <normaloff>:/Application/icons/Display_mesh.png</normaloff>:/Application/icons/Display_mesh.png</iconset>
+   </property>
+   <property name="text">
+    <string>Display triangulation</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="actionDisplay_cage">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../res/icons.qrc">
+     <normaloff>:/Application/icons/Display_cage.png</normaloff>:/Application/icons/Display_cage.png</iconset>
+   </property>
+   <property name="text">
+    <string>Display cage</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionAdd_Line_handles">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../res/icons.qrc">
+     <normaloff>:/Application/icons/Line_handles.png</normaloff>:/Application/icons/Line_handles.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add Line handle</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionAdd_Polyline_handle">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../res/icons.qrc">
+     <normaloff>:/Application/icons/Polyline_handles.png</normaloff>:/Application/icons/Polyline_handles.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add Polyline handle</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+A</string>
+   </property>
+  </action>
+  <action name="actionUse_Euclidean_distance">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../res/icons.qrc">
+     <normaloff>:/Application/icons/Euclidean.png</normaloff>:/Application/icons/Euclidean.png</iconset>
+   </property>
+   <property name="text">
+    <string>Use Euclidean distance</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionSnapshot">
+   <property name="icon">
+    <iconset resource="../../res/icons.qrc">
+     <normaloff>:/Application/icons/Snapshot.png</normaloff>:/Application/icons/Snapshot.png</iconset>
+   </property>
+   <property name="text">
+    <string>Take snapshot</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionReset_deformation">
+   <property name="icon">
+    <iconset resource="../../res/icons.qrc">
+     <normaloff>:/Application/icons/Reset.png</normaloff>:/Application/icons/Reset.png</iconset>
+   </property>
+   <property name="text">
+    <string>Reset deformation</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionDelete_all_handles">
+   <property name="icon">
+    <iconset resource="../../res/icons.qrc">
+     <normaloff>:/Application/icons/Delete_handles.png</normaloff>:/Application/icons/Delete_handles.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete all handles</string>
+   </property>
+  </action>
+  <action name="actionHide_handles">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../res/icons.qrc">
+     <normaloff>:/Application/icons/Hide_handles.png</normaloff>:/Application/icons/Hide_handles.png</iconset>
+   </property>
+   <property name="text">
+    <string>Hide handles</string>
+   </property>
+  </action>
+  <action name="actionModify_cage">
+   <property name="text">
+    <string>Modify cage ...</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>OpenGLWidget</class>
+   <extends>QWidget</extends>
+   <header>openglwidget.h</header>
+   <container>1</container>
+   <slots>
+    <slot>imageLoaded()</slot>
+    <slot>toggleDisplayMesh(bool)</slot>
+    <slot>toggleDisplayCage(bool)</slot>
+    <slot>toggleAddLineHandle(bool)</slot>
+    <slot>toggleAddPolylineHandle(bool)</slot>
+    <slot>toggleUseEuclideanDistanceWeights(bool)</slot>
+    <slot>takeSnapshot()</slot>
+    <slot>resetDeformation()</slot>
+    <slot>deleteAllHandles()</slot>
+    <slot>hideHandles(bool)</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../../res/icons.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>imageLoaded()</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>imageLoaded()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>302</x>
+     <y>287</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionDisplay_triangulation</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>toggleDisplayMesh(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionDisplay_cage</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>toggleDisplayCage(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAdd_Line_handles</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>toggleAddLineHandle(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAdd_Polyline_handle</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>toggleAddPolylineHandle(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionUse_Euclidean_distance</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>toggleUseEuclideanDistanceWeights(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSnapshot</sender>
+   <signal>triggered()</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>takeSnapshot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionReset_deformation</sender>
+   <signal>triggered()</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>resetDeformation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionDelete_all_handles</sender>
+   <signal>triggered()</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>deleteAllHandles()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionHide_handles</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>hideHandles(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <signal>imageLoaded()</signal>
+ </slots>
+</ui>
