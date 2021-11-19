@@ -27,27 +27,40 @@
 #QMAKE_LINK = /usr/local/bin/clang-omp
 #QMAKE_LINK_SHLIB = /usr/local/bin/clang-omp
 
-#QMAKE_CFLAGS += -fopenmp -Ofast
-#QMAKE_CXXFLAGS += -fopenmp -Ofast
-#QMAKE_LFLAGS += -fopenmp
-QMAKE_CFLAGS += -Ofast
-QMAKE_CXXFLAGS += -Ofast
-QMAKE_LFLAGS +=
+unix:!macx {
+	QMAKE_CFLAGS += -fopenmp -Ofast
+	QMAKE_CXXFLAGS += -fopenmp -Ofast
+	QMAKE_LFLAGS += -fopenmp
+}
+macx {
+	QMAKE_CFLAGS += -Ofast
+	QMAKE_CXXFLAGS += -Ofast
+	QMAKE_LFLAGS +=
+}
 
 QT += core gui opengl
 TEMPLATE = app
 TARGET = Maurice
 
-#CONFIG += debug
+CONFIG += debug
 #DEFINES += NDEBUG
 
 #INCLUDEPATH += /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include
 INCLUDEPATH += . src/ui src/utils src/algorithm
 INCLUDEPATH += /usr/local/include/eigen3 /usr/local/include/opencv /usr/local/include 
-#INCLUDEPATH += /usr/local/include/libiomp/
 INCLUDEPATH += extern/poly2tri
 
-LIBS += `/usr/local/bin/pkg-config --libs opencv`
+unix:!macx {
+	INCLUDEPATH += /usr/local/include/libiomp/
+}
+
+unix:!macx {
+	LIBS += `/usr/bin/pkg-config --libs opencv` -lGLU -lGLEW
+}
+
+macx {
+	LIBS += `/usr/local/bin/pkg-config --libs opencv` 
+}
 
 OBJECTS_DIR=build
 MOC_DIR=build
