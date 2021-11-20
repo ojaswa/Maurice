@@ -42,23 +42,22 @@ QT += core gui opengl
 TEMPLATE = app
 TARGET = Maurice
 
-CONFIG += debug
+#CONFIG += debug
 #DEFINES += NDEBUG
 
 #INCLUDEPATH += /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include
-INCLUDEPATH += . src/ui src/utils src/algorithm
-INCLUDEPATH += /usr/local/include/eigen3 /usr/local/include/opencv /usr/local/include 
+INCLUDEPATH += . src/ui src/algorithm
+
 INCLUDEPATH += extern/poly2tri
 
 unix:!macx {
-	INCLUDEPATH += /usr/local/include/libiomp/
-}
-
-unix:!macx {
-	LIBS += `/usr/bin/pkg-config --libs opencv` -lGLU -lGLEW
+	INCLUDEPATH += /usr/include/libiomp/
+	INCLUDEPATH += /usr/include/eigen3 /usr/include/opencv 
+	LIBS += `/usr/bin/pkg-config --libs opencv` -lGLU
 }
 
 macx {
+	INCLUDEPATH += /usr/local/include/eigen3 /usr/local/include/opencv
 	LIBS += `/usr/local/bin/pkg-config --libs opencv` 
 }
 
@@ -78,8 +77,6 @@ HEADERS +=  src/ui/mainwindow.h \
             extern/poly2tri/sweep/cdt.h \
             extern/poly2tri/sweep/sweep_context.h \
             extern/poly2tri/sweep/sweep.h \
-	    src/utils/gl_utils.h \
-	    src/utils/shader_utils.h \
     src/ui/cagedialog.h
 
 FORMS +=    src/ui/mainwindow.ui \
@@ -94,8 +91,6 @@ SOURCES +=  src/main.cpp \
             extern/poly2tri/sweep/cdt.cc \
             extern/poly2tri/sweep/sweep_context.cc \
             extern/poly2tri/sweep/sweep.cc \
-	    src/utils/gl_utils.cpp \
-	    src/utils/shader_utils.cpp \
     src/ui/cagedialog.cpp
 
 RESOURCES += res/icons.qrc res/shaders.qrc

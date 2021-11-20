@@ -38,6 +38,11 @@
 #define HANDLE_SELECT_THRESHOLD 10.0 // In pixel units
 #define NODE_SELECT_SIZE 5.0
 
+#define M_PI 3.14159265f
+
+#define printOpenGLError() printOglError(__FILE__, __LINE__)
+#define degreeToRadians(X) ((X)*M_PI/180.0f)
+
 class OpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
     Q_OBJECT
@@ -51,6 +56,11 @@ protected:
     void initializeGL();
     void resizeGL(int w, int h);
     void paintGL();
+    GLuint createProgram(const char *vshader_filename, const char* fshader_filename);
+    char* getShaderCode(const char* filename);
+    void printLog(GLuint object);
+    GLuint createShader(const char* filename, GLenum type);
+    int printOglError(const char *file, int line);
     void setupProjectionTransformation();
     void createShape(); //Gets called (using signal-slot mechanism) when an image is read
     void setupLineHandleDisplay();
