@@ -65,8 +65,8 @@ void Shape::loadImage(const char *imagefile)
     //Extract border
     vector<vector<Point> > contours;
     dilate(m_alpha, m_alpha, Mat(), Point(-1, -1), 1); //Dilate by one-pixel to get rid of skinny features
-    findContours(m_alpha, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_TC89_L1);
-    //findContours(m_alpha, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
+    findContours(m_alpha, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_TC89_L1);
+    //findContours(m_alpha, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
     //approxPolyDP(contours[0], m_shape, 2.0f, true);
     m_shape = contours[0];
 
@@ -122,7 +122,7 @@ void Shape::computeCage()
     threshold( layers[3], m_alpha, 128, 255,THRESH_BINARY );
     dilate(m_alpha, m_alpha, Mat(), Point(-1, -1), m_cageDilation);
     vector<vector<Point> > m_dilatedContour;
-    findContours(m_alpha, m_dilatedContour, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
+    findContours(m_alpha, m_dilatedContour, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
     approxPolyDP(m_dilatedContour[0], m_cage, (float)m_cageSimplification, true);
 }
 

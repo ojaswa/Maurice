@@ -22,7 +22,6 @@
 **           Date  : 28.10.2015                                           **
 ****************************************************************************/
 #include "openglwidget.h"
-#include <GL/glu.h>
 
 #include <QMouseEvent>
 #include <QKeyEvent>
@@ -338,7 +337,8 @@ void OpenGLWidget::createShape()
     //use fast 4-byte alignment (default anyway) if possible
     glPixelStorei(GL_UNPACK_ALIGNMENT, (m_shape->m_image.step & 3) ? 1 : 4);
     //set length of one complete row in data (doesn't need to equal image.cols)
-    glPixelStorei(GL_UNPACK_ROW_LENGTH, m_shape->m_image.step/m_shape->m_image.elemSize());
+		//Commenting below line to fix display bug on linux.
+    //glPixelStorei(GL_UNPACK_ROW_LENGTH, m_shape->m_image.step/m_shape->m_image.elemSize());
 
     glGenTextures(1, &m_shapeTexture);
     glBindTexture(GL_TEXTURE_2D, m_shapeTexture);
@@ -781,7 +781,7 @@ int OpenGLWidget::printOglError(const char *file, int line)
 	glErr = glGetError();
 	if(glErr != GL_NO_ERROR)
 	{
-		fprintf(stderr, "glError in file %s @ line %d: %s\n", file, line, gluErrorString(glErr));
+		fprintf(stderr, "glError in file %s @ line %d. GL error code: %d\n", file, line, glErr);
 		retCode = 1;
 	}
 	return retCode;
