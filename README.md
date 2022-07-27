@@ -4,8 +4,9 @@
 *Dependencies: Qt5*
 
 ### Compiling:
-1. run `qmake`
-2. run `make`
+1. `mkdir build; cd build` 
+2. `cmake ..`
+3. `make`
 
 ### Running:
 1. Run the application Maurice in terminal
