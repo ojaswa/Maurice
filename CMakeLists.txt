@@ -21,7 +21,7 @@ endif()
 
 
 find_package(OpenGL REQUIRED)
-find_package(GLM REQUIRED)
+find_package(glm REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(OpenMP)
@@ -73,7 +73,7 @@ target_include_directories(${TARGET} PRIVATE
 	${GLM_INCLUDE_DIRS}/../include
 	)
 
-target_link_libraries(${TARGET} LINK_PUBLIC ${OpenCV_LIBS} Eigen3::Eigen glm::glm)
+target_link_libraries(${TARGET} LINK_PUBLIC ${OpenCV_LIBS} Eigen3::Eigen glm OpenGL::OpenGL)
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 	target_link_libraries(${TARGET} LINK_PUBLIC Qt6::Core Qt6::Widgets Qt6::Gui Qt6::OpenGLWidgets)
 else()
